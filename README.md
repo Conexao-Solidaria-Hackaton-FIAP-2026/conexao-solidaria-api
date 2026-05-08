@@ -1,28 +1,13 @@
-# Conexao Solidaria - API (Pessoa 1)
+# Conexao Solidaria 
 
 Plataforma digital MVP para a ONG Esperanca Solidaria.
 
 ## Divisao do grupo
 
-Este repositorio contem o escopo da **Pessoa 1**:
 
 - API principal (JWT, RBAC, Doador, Campanhas, Painel de Transparencia, publicacao de evento no RabbitMQ)
 - `docker-compose.yml` (stack local)
 - GitHub Actions (CI)
-
-Fora do escopo deste desenvolvedor (Pessoa 2):
-
-- Worker consumidor do RabbitMQ (`donation-worker`)
-- Dockerfiles (API + Worker)
-- Manifests Kubernetes (Deployments, Services, ConfigMaps)
-- Grafana (dashboards + metricas)
-
-Decisoes conjuntas ja contempladas aqui:
-
-- Banco **SQL Server**
-- Contrato do evento `DoacaoRecebidaEvent`
-- Variaveis de ambiente esperadas por cada servico (ver `appsettings.json` + `docker-compose.yml`)
-- Mono-repo
 
 ## Stack
 
@@ -89,7 +74,7 @@ Publicado com envelope MassTransit (`ContentType = application/vnd.masstransit+j
 
 ## Rodar localmente
 
-> **SQL Server e RabbitMQ sao provisionados pelo repositorio de infra (Pessoa 2).**
+> **SQL Server e RabbitMQ sao provisionados pelo repositorio de infra.**
 > Certifique-se de que a stack de infra esta rodando antes de subir esta API.
 
 Com a infra ja no ar, sobe apenas a API:
