@@ -1,0 +1,42 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConexaoSolidaria.Api", "ConexaoSolidaria.Api\ConexaoSolidaria.Api.csproj", "{C1E2FC57-E910-CAAE-0044-1C056CCA95BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConexaoSolidaria.Application", "ConexaoSolidaria.Application\ConexaoSolidaria.Application.csproj", "{24F3EDBA-21CD-733D-75BB-0BD68254F892}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConexaoSolidaria.Domain", "ConexaoSolidaria.Domain\ConexaoSolidaria.Domain.csproj", "{A5C9D29D-780A-B4A6-5F19-F559F6F34160}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConexaoSolidaria.Infrastructure", "ConexaoSolidaria.Infrastructure\ConexaoSolidaria.Infrastructure.csproj", "{11A04161-5779-9FDA-BA62-4E1BBFDDBFFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C1E2FC57-E910-CAAE-0044-1C056CCA95BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1E2FC57-E910-CAAE-0044-1C056CCA95BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1E2FC57-E910-CAAE-0044-1C056CCA95BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1E2FC57-E910-CAAE-0044-1C056CCA95BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24F3EDBA-21CD-733D-75BB-0BD68254F892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24F3EDBA-21CD-733D-75BB-0BD68254F892}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24F3EDBA-21CD-733D-75BB-0BD68254F892}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24F3EDBA-21CD-733D-75BB-0BD68254F892}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5C9D29D-780A-B4A6-5F19-F559F6F34160}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5C9D29D-780A-B4A6-5F19-F559F6F34160}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5C9D29D-780A-B4A6-5F19-F559F6F34160}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5C9D29D-780A-B4A6-5F19-F559F6F34160}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11A04161-5779-9FDA-BA62-4E1BBFDDBFFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11A04161-5779-9FDA-BA62-4E1BBFDDBFFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11A04161-5779-9FDA-BA62-4E1BBFDDBFFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11A04161-5779-9FDA-BA62-4E1BBFDDBFFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {33AC29E8-98EE-4B06-831E-8D1C022C78B4}
+	EndGlobalSection
+EndGlobal
