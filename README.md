@@ -2,8 +2,6 @@
 
 Plataforma digital MVP para a ONG Esperanca Solidaria.
 
-## Divisao do grupo
-
 
 - API principal (JWT, RBAC, Doador, Campanhas, Painel de Transparencia, publicacao de evento no RabbitMQ)
 - `docker-compose.yml` (stack local)
