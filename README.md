@@ -1,11 +1,6 @@
-# Conexao Solidaria 
+# Conexao Solidaria
 
-Plataforma digital MVP para a ONG Esperanca Solidaria.
-
-
-- API principal (JWT, RBAC, Doador, Campanhas, Painel de Transparencia, publicacao de evento no RabbitMQ)
-- `docker-compose.yml` (stack local)
-- GitHub Actions (CI)
+Plataforma digital MVP para a ONG Esperanca Solidaria. Permite gestao de campanhas, registro de doacoes e processamento assincrono via RabbitMQ.
 
 ## Stack
 
@@ -29,14 +24,14 @@ src/
 tests/
   ConexaoSolidaria.Domain.Tests/    # xUnit
 .github/workflows/ci.yml            # Pipeline CI (build + test)
-docker-compose.yml                  # Stack local (SQL Server + RabbitMQ + API)
+docker-compose.yml                  # Stack local
 ```
 
 ## Fluxo de Doacao (Assincrono)
 
 1. `POST /api/doacoes` persiste doacao em `Pendente` + publica `DoacaoRecebidaEvent` na fila `DoacaoRecebida` (envelope MassTransit).
 2. API responde **202 Accepted** imediatamente.
-3. Worker (escopo Pessoa 2) consome fila `DoacaoRecebida`, atualiza status para `Processada` e soma valor na campanha.
+3. Worker consome fila `DoacaoRecebida`, atualiza status para `Processada` e soma valor na campanha.
 
 ### Contrato do evento
 
@@ -55,8 +50,6 @@ Publicado com envelope MassTransit (`ContentType = application/vnd.masstransit+j
 
 ## Endpoints
 
-| Metodo | Rota                             | Role       |
-|--------|----------------------------------|------------|
 | Metodo | Rota                                    | Role       |
 |--------|-----------------------------------------|------------|
 | POST   | /api/auth/cadastrar-doador              | Publico    |
@@ -75,32 +68,27 @@ Publicado com envelope MassTransit (`ContentType = application/vnd.masstransit+j
 > **SQL Server e RabbitMQ sao provisionados pelo repositorio de infra.**
 > Certifique-se de que a stack de infra esta rodando antes de subir esta API.
 
-Com a infra ja no ar, sobe apenas a API:
-
 ```bash
 dotnet run --project src/ConexaoSolidaria.Api
 ```
 
 - API: http://localhost:5000/swagger (ou porta definida em `launchSettings.json`)
 
-Quando o Dockerfile da API estiver disponivel (Pessoa 2):
+Com Docker:
 
 ```bash
 docker compose up --build
 ```
 
-## Variaveis de ambiente consumidas pela API
+## Variaveis de ambiente
 
-| Variavel                           | Default (compose)                                              |
+| Variavel                           | Default                                                        |
 |------------------------------------|----------------------------------------------------------------|
 | `ConnectionStrings__SqlServer`     | `Server=sqlserver,1433;Database=ConexaoSolidaria;...`          |
 | `RabbitMq__Host`                   | `rabbitmq`                                                     |
 | `RabbitMq__Port`                   | `5672`                                                         |
-| `RabbitMq__Exchange`               | `conexao.solidaria`                                            |
-| `RabbitMq__QueueDoacoes`           | `doacoes.recebidas`                                            |
-| `RabbitMq__RoutingKeyDoacoes`      | `doacao.recebida`                                              |
 | `Jwt__SecretKey`                   | (minimo 32 chars)                                              |
-| `Jwt__Issuer` / `Jwt__Audience`    | `ConexaoSolidaria` / `ConexaoSolidaria.Clients`                |
+| `Jwt__Issuer` / `Jwt__Audience`    | `ConexaoSolidaria`                                             |
 | `Database__AutoMigrate`            | `true` (aplica EF migrations no startup)                       |
 
 ## Testes
@@ -111,4 +99,4 @@ dotnet test ConexaoSolidaria.slnx
 
 ## Primeiro Gestor
 
-Use o endpoint `POST /api/auth/cadastrar-gestor` com o mesmo payload do doador. Cria usuario com role `GestorONG` diretamente.
+Use `POST /api/auth/cadastrar-gestor` com o mesmo payload do doador. Cria usuario com role `GestorONG` diretamente.
