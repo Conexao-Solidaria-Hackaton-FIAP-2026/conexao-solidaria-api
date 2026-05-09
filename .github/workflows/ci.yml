@@ -1,37 +1,52 @@
-name: CI
+name: CI - Campaigns API
 
 on:
   push:
-    branches: [main, master, develop]
+    branches: [ "main" ]
   pull_request:
-    branches: [main, master]
+    branches: [ "main" ]
 
 env:
   DOTNET_VERSION: '10.0.x'
+  DOCKERHUB_REPO: brpeekz/conexao-solidaria-campaign-api
 
 jobs:
-  build-test:
+  build-and-publish:
+    name: Build, Test & Push Docker Image
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - name: Setup .NET
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar .NET ${{ env.DOTNET_VERSION }}
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Restore
-        run: dotnet restore ConexaoSolidaria.slnx
+      - name: Restaurar dependências
+        run: dotnet restore src/ConexaoSolidaria.Api/ConexaoSolidaria.Api.csproj
 
       - name: Build
-        run: dotnet build ConexaoSolidaria.slnx -c Release --no-restore
+        run: dotnet build src/ConexaoSolidaria.Api/ConexaoSolidaria.Api.csproj --no-restore --configuration Release
 
-      - name: Test
-        run: dotnet test ConexaoSolidaria.slnx -c Release --no-build --logger "trx;LogFileName=test-results.trx"
+      - name: Executar testes
+        run: dotnet test tests/ConexaoSolidaria.Domain.Tests/ConexaoSolidaria.Domain.Tests.csproj --configuration Release --verbosity normal
 
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
+      - name: Publicar aplicação
+        run: dotnet publish src/ConexaoSolidaria.Api/ConexaoSolidaria.Api.csproj --configuration Release --output ./publish
+
+      - name: Login no Docker Hub
+        uses: docker/login-action@v3
         with:
-          name: test-results
-          path: '**/test-results.trx'
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build e Push da imagem Docker
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: ${{ github.ref == 'refs/heads/main' }}
+          tags: |
+            ${{ env.DOCKERHUB_REPO }}:latest
+            ${{ env.DOCKERHUB_REPO }}:${{ github.sha }}
