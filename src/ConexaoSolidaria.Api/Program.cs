@@ -73,8 +73,7 @@ builder.Services.AddAuthorization(opt =>
 });
 
 builder.Services.AddHealthChecks()
-    .AddSqlServer(builder.Configuration.GetConnectionString("SqlServer")!, name: "sqlserver")
-    .AddRabbitMQ(name: "rabbitmq");
+    .AddSqlServer(builder.Configuration.GetConnectionString("SqlServer")!, name: "sqlserver");
 
 builder.Services.AddCors(opt => opt.AddDefaultPolicy(p =>
     p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
